@@ -2,111 +2,34 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Play, X } from "@phosphor-icons/react";
-import v1 from "@/assets/travel-1.mp4.asset.json";
-import v2 from "@/assets/travel-2.mp4.asset.json";
-import vK from "@/assets/insta-kyoto.mp4.asset.json";
-import t1 from "@/assets/travel-1-thumb.jpg.asset.json";
-import t2 from "@/assets/travel-2-thumb.jpg.asset.json";
-import tK from "@/assets/insta-kyoto-thumb.jpg.asset.json";
-import vB from "@/assets/br-hills.mp4.asset.json";
-import tB from "@/assets/br-hills-thumb.jpg.asset.json";
-import r1 from "@/assets/real-estate-1.mp4.asset.json";
-import rt1 from "@/assets/real-estate-1-thumb.jpg.asset.json";
-import r2 from "@/assets/final_3_1.mp4.asset.json";
-import rt2 from "@/assets/final_3_1-thumb.jpg.asset.json";
-import vx1 from "@/assets/vfx-1.mp4.asset.json";
-import vxt1 from "@/assets/vfx-1-thumb.jpg.asset.json";
-import e1 from "@/assets/event-recap-willsons.mp4.asset.json";
-import et1 from "@/assets/event-recap-willsons-thumb.jpg.asset.json";
+import { useSiteContent } from "@/lib/site-content";
 
 gsap.registerPlugin(ScrollTrigger);
-
-type CategoryId = "travel" | "real-estate" | "vfx" | "event-recaps";
-
-const categories: { id: CategoryId; label: string; tag: string }[] = [
-  { id: "travel", label: "Travel", tag: "Travel / Vlog" },
-  { id: "real-estate", label: "Real Estate", tag: "Real Estate" },
-  { id: "vfx", label: "VFX", tag: "VFX" },
-  { id: "event-recaps", label: "Event Recaps & Ads", tag: "Event Recap / Ad" },
-];
-
-type Project = {
-  category: CategoryId;
-  video: string;
-  thumb: string;
-  title: string;
-  desc: string;
-};
-
-// Add new work here — just set the category and it appears under that tab.
-const projects: Project[] = [
-  {
-    category: "travel",
-    video: vK.url,
-    thumb: tK.url,
-    title: "Kyoto Cinematic",
-    desc: "A cinematic Kyoto travel film — golden streets, temple light and smooth, breathing camera motion.",
-  },
-  {
-    category: "travel",
-    video: v1.url,
-    thumb: t1.url,
-    title: "Golden Hour Escape",
-    desc: "A warm, sun-soaked travel cut paced to breathe — handheld frames, soft grade, ambient sound.",
-  },
-  {
-    category: "travel",
-    video: v2.url,
-    thumb: t2.url,
-    title: "Cinematic Roadtrip",
-    desc: "Wide landscapes and motion-matched transitions edited into a short cinematic travel story.",
-  },
-  {
-    category: "travel",
-    video: vB.url,
-    thumb: tB.url,
-    title: "BR Hills Ride",
-    desc: "A moto-vlog ride through the forest roads of BR Hills, Karnataka — winding climbs, misty valleys and a cinematic summit reveal.",
-  },
-  {
-    category: "real-estate",
-    video: r1.url,
-    thumb: rt1.url,
-    title: "Property Showcase",
-    desc: "Cinematic real-estate walkthrough with smooth camera movement, warm tones and clean pacing.",
-  },
-  {
-    category: "real-estate",
-    video: r2.url,
-    thumb: rt2.url,
-    title: "Luxury Property Reel",
-    desc: "Elegant vertical real-estate film highlighting space, light and atmosphere for premium listings.",
-  },
-  {
-    category: "vfx",
-    video: vx1.url,
-    thumb: vxt1.url,
-    title: "Holographic Showcase",
-    desc: "A 3D VFX composite where a phone projects a spinning holographic carousel of films, with tracked light, depth and motion blur.",
-  },
-  {
-    category: "event-recaps",
-    video: e1.url,
-    thumb: et1.url,
-    title: "Willson's Live Music Lounge — Event Recap",
-    desc: "A high-energy event recap for Willson's Restaurant & Live Music Lounge — live band performances, crowd moments and the full night atmosphere cut into a punchy promo film.",
-  },
-];
 
 export default function Projects() {
   const root = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const tabsRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLSpanElement>(null);
-  const [category, setCategory] = useState<CategoryId>("travel");
+  const { categories, projects: rows } = useSiteContent();
+  const [category, setCategory] = useState<string>(categories[0]?.id ?? "");
   const [active, setActive] = useState<number | null>(null);
 
+  const projects = rows.map((r) => ({
+    category: r.category_id,
+    video: r.video_url,
+    thumb: r.thumb_url,
+    title: r.title,
+    desc: r.description,
+  }));
   const visible = projects.filter((p) => p.category === category);
+
+  // If the open category was renamed/removed in the admin, fall back to the first one.
+  useEffect(() => {
+    if (categories.length && !categories.some((c) => c.id === category)) {
+      setCategory(categories[0]?.id ?? "");
+    }
+  }, [categories, category]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {

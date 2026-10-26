@@ -7,6 +7,7 @@ import About from "@/components/About";
 import Projects from "@/components/Projects";
 import Testimonials from "@/components/Testimonials";
 import Certificate from "@/components/Certificate";
+import Booking from "@/components/Booking";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -48,6 +49,7 @@ function Index() {
           <Projects />
           <Testimonials />
           <Certificate />
+          <Booking />
           <Contact />
         </main>
         <Footer />

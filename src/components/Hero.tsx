@@ -2,13 +2,14 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, PlayCircle } from "@phosphor-icons/react";
-import showreel from "@/assets/travel_cinematic.mp4.asset.json";
+import { useSiteContent } from "@/lib/site-content";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
+  const { settings } = useSiteContent();
 
   useEffect(() => {
     const el = video.current;
@@ -100,7 +101,7 @@ export default function Hero() {
         <video
           ref={video}
           className="h-full w-full object-cover"
-          src={showreel.url}
+          src={settings["hero_video_url"]}
           autoPlay
           muted
           loop

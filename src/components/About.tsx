@@ -8,7 +8,7 @@ import {
   Sparkle,
   BookOpenText,
 } from "@phosphor-icons/react";
-import profile from "@/assets/profile-2.jpeg.asset.json";
+import { useSiteContent } from "@/lib/site-content";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +22,7 @@ const skills = [
 
 export default function About() {
   const root = useRef<HTMLElement>(null);
+  const { settings } = useSiteContent();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -74,7 +75,7 @@ export default function About() {
             <div className="absolute -inset-4 rounded-[2rem] bg-primary/25 blur-3xl transition-all duration-500 group-hover:bg-accent/30" />
             <div className="relative h-72 w-72 overflow-hidden rounded-[2rem] border border-border glow-ring sm:h-80 sm:w-80">
               <img
-                src={profile.url}
+                src={settings["profile_image_url"]}
                 alt="Portrait of Piyush, video editor"
                 className="h-full w-full object-cover object-top scale-[1.02] transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-105"
               />
