@@ -258,7 +258,7 @@ export default function Projects() {
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <span className="absolute inset-0 bg-foreground/10 transition-colors duration-500 group-hover:bg-foreground/25" />
+                <span className="absolute inset-0 bg-foreground/10 transition-colors duration-500 group-hover:bg-foreground/25 dark:bg-black/10 dark:group-hover:bg-black/25" />
                 <span className="absolute inset-0 flex items-center justify-center">
                   <span className="glass flex h-16 w-16 items-center justify-center rounded-full text-primary transition-all duration-500 group-hover:scale-110 group-hover:glow-ring">
                     <Play size={26} weight="fill" />
@@ -295,7 +295,7 @@ export default function Projects() {
           aria-modal="true"
           aria-label={current.title}
           onClick={() => setActive(null)}
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-foreground/70 p-4 backdrop-blur-md"
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-foreground/70 p-4 backdrop-blur-md dark:bg-black/75"
         >
           <div
             onClick={(e) => e.stopPropagation()}

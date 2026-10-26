@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { List, X } from "@phosphor-icons/react";
 import gsap from "gsap";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const links = [
   { label: "Home", href: "#home" },
@@ -63,6 +64,7 @@ export default function Nav() {
                 />
               </a>
             ))}
+            <ThemeToggle />
             <a
               href="#contact"
               className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all duration-500 hover:scale-105 hover:glow-ring"
@@ -70,9 +72,12 @@ export default function Nav() {
               Hire Me
             </a>
           </div>
-          <button aria-label="Open menu" onClick={() => setOpen(true)} className="text-foreground md:hidden">
-            <List size={26} weight="light" />
-          </button>
+          <div className="flex items-center gap-3 md:hidden">
+            <ThemeToggle />
+            <button aria-label="Open menu" onClick={() => setOpen(true)} className="text-foreground">
+              <List size={26} weight="light" />
+            </button>
+          </div>
         </nav>
       </header>
 

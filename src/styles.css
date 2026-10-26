@@ -80,6 +80,29 @@
   --shadow-lift: 0 40px 90px -50px oklch(0.17 0 0 / 0.65);
 }
 
+/* Dark theme — same orange / gold accents, warm near-black surfaces */
+.dark {
+  color-scheme: dark;
+  --background: oklch(0.145 0.004 60);
+  --surface: oklch(0.18 0.004 60);
+  --surface-warm: oklch(0.21 0.005 60);
+  --foreground: oklch(0.965 0.003 90);
+  --card: oklch(0.18 0.004 60);
+  --card-foreground: oklch(0.965 0.003 90);
+  --popover: oklch(0.18 0.004 60);
+  --popover-foreground: oklch(0.965 0.003 90);
+  --secondary: oklch(0.24 0.005 60);
+  --secondary-foreground: oklch(0.965 0.003 90);
+  --muted: oklch(0.24 0.005 60);
+  --muted-foreground: oklch(0.72 0.004 80);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 7%);
+  /* primary / accent / gold stay the same as light so the brand orange is unchanged */
+
+  --shadow-soft: 0 30px 70px -40px oklch(0 0 0 / 0.85);
+  --shadow-lift: 0 40px 90px -50px oklch(0 0 0 / 0.9);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
